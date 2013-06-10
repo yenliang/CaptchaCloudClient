@@ -34,10 +34,10 @@ public class HiCaptchaWebServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("image/png");
-        int Length = 4; // 4~10
-		int OCRLevel = 1; // 0~3
+        int Length = 6; // 4~10
+		int OCRLevel = 2; // 0~3
 				
-		HiCaptchaClientAPI hct = new HiCaptchaClientAPI("ISVTEST", "57", "sliTgaYmYX1qU1CLY7AvUQ==");
+		HiCaptchaClientAPI hct = new HiCaptchaClientAPI("367f7deaa1ce47b185a0c91cb6d8f714", "57", "n+ABj+1w6e1Ht2A2ziBh0Q==");
 		//ISVTEST 開發商需自行修改為自己的帳號
 		//sliTgaYmYX1qU1CLY7AvUQ== 開發商需自行修改為自己的SDK secretKey
 		
@@ -61,7 +61,7 @@ public class HiCaptchaWebServlet extends HttpServlet {
 		if( hct.getErrorCode() == 0){
 		//	System.out.println("CaptchaAnswer: " + hct.getCaptchaAnswer());			
 			
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(true);
 		    session.setAttribute("ans" , hct.getCaptchaAnswer()); // set "ans"  variable for captchasubmit.jsp used
 			
 			//write to file: 
@@ -84,9 +84,6 @@ public class HiCaptchaWebServlet extends HttpServlet {
 		else{
 			System.out.println("Error Code: " + hct.getErrorCode());
 			System.out.println("Error Message: " + hct.getErrorMsg());
-		}
-    
+		}    
     }
-
-
 }

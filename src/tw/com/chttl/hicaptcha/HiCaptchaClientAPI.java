@@ -18,7 +18,7 @@ import cht.ccsdk.proxy.ServiceManager;
 		//private String token = null;
 		//private String sign = null;
 		
-		private String ServiceApi_address = "http://localhost:8080/CaptchaCloud/services/HiCaptcha.HiCaptchaHttpSoap11Endpoint/";
+		private String ServiceApi_address = "http://cht-captcha-api.hicloud.net.tw:8080/CaptchaCloud/services/HiCaptcha.HiCaptchaHttpSoap11Endpoint/";
 
 		private String result = null;
 		
@@ -133,7 +133,9 @@ import cht.ccsdk.proxy.ServiceManager;
 			String timestamp = Long.toString(ServiceManager.genTimestamp());
 			String nonce = ServiceManager.genNonce();
 			//Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("10.160.3.88", 8080));
-		ServiceManager srvMgr = new ServiceManager("http","hiapi.ext.hipaas.hinet.net",80,null);
+		//ServiceManager srvMgr = new ServiceManager("http","hiapi.ext.hipaas.hinet.net",80,null);
+			ServiceManager srvMgr = new ServiceManager("http","api.hicloud.hinet.net",80,null);   //####
+			
 			//ServiceManager srvMgr = new ServiceManager("http","lab.api.hicloud.hinet.net",80,null);			
 			String signCl = ServiceManager.genSign(isvkey + nonce + timestamp,
 					"SHA");
@@ -212,8 +214,7 @@ import cht.ccsdk.proxy.ServiceManager;
 		public String getResult(String name){
 	    	if(this.result==null) return null;
 	    	int start=this.result.indexOf("<"+name+">");
-	    	if(start==-1) return null;
-	    	int end=this.result.indexOf("</"+name+">");
+	    	if(start==-1) return null;    	int end=this.result.indexOf("</"+name+">");
 	    	if(end==-1) return null;
 	    	start=start+2+name.length();
 	    	return this.result.substring(start,end);
